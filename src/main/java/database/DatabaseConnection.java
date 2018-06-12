@@ -1,17 +1,20 @@
 package database;
 
-import java.sql.*;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 public class DatabaseConnection {
-
-	public DatabaseConnection() {
-
-	}
-
-	public static Connection newConnection() throws Exception {
+	private static MongoClient client;
+	private static String databaseName = "chessGame";
+	
+	public synchronized static MongoDatabase newConnection() throws Exception {
+		if(client != null) {
+			return client.getDatabase(databaseName);
+		}
+		
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); // Load JDBC driver
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/TheLastChessGame", "root", "pass"); // Return connection with database
+			client = new MongoClient("localhost", 27017);
+			return client.getDatabase(databaseName);
 		} catch (Exception e) {
 			System.out.println("Problem connecting with database");
 			e.printStackTrace();

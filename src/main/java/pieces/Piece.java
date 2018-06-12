@@ -2,6 +2,8 @@ package pieces;
 
 import java.util.List;
 
+import org.bson.Document;
+
 import game.BoardMovements;
 import game.ColorInfo;
 import game.Coordinates;
@@ -14,8 +16,7 @@ public class Piece {
 	private boolean moved;
 	private ColorInfo color;
 
-	public Piece() {
-	}
+	public Piece() {}
 
 	public Piece(Coordinates actualPosition, PieceInfo type, boolean moved, ColorInfo color) {
 		this.actualPosition = actualPosition;
@@ -109,6 +110,15 @@ public class Piece {
 				}
 			}
 		}
+	}
+	
+	public Document pieceToDoc() {
+		return new Document("coord_row", this.getActualPosition().getRow())
+				.append("coord_column", this.getActualPosition().getColumn())
+				.append("piece_type", this.getType().value)
+				.append("moved", this.isMoved())
+				.append("piece_color", this.getColor().value)
+				.append("index", this.getIndex());
 	}
 
 	public Coordinates getActualPosition() {

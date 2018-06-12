@@ -2,6 +2,13 @@ package database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import game.ColorInfo;
 import game.Coordinates;
@@ -11,61 +18,39 @@ import pieces.PieceList;
 
 public class LoadGame {
 
-	private static Connection connection;
-
-	public LoadGame() {
-
-	}
+	private static MongoDatabase db;
+	private static MongoCollection<Document> collection;
 
 	public static ColorInfo loadGame(String gameName, PieceList pieceBox[]) throws Exception {
-		connection = DatabaseConnection.newConnection(); // Connect to database
-		Statement stmt = connection.createStatement(); /* Creates a Statement object for sending SQL statements to the database */
-		int i = 0;
-
+		int i;
+		
 		try {
-			/* Load whose turn it is */
-			String sql = "SELECT turn FROM save_game WHERE name = '" + gameName + "'";
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			i = rs.getInt("turn");
-
-			/* Load all pieces */
-			sql = "SELECT * FROM piece WHERE game_name = '" + gameName + "'";
-			rs = stmt.executeQuery(sql);
-
-			/* Initialize the pieceBox with each piece information */
-			while (rs.next()) {
-				int coord_row = rs.getInt("coord_row");
-				int coord_column = rs.getInt("coord_column");
-				int piece_type = rs.getInt("piece_type");
-				boolean moved = rs.getBoolean("moved");
-				int piece_color = rs.getInt("piece_color");
-				int index = rs.getInt("piece_index");
+			if(db == null) {
+				db = DatabaseConnection.newConnection(); // Connect to database
+			}
+			collection = db.getCollection("games");		
+			Document searchQuery = new Document("saveName", gameName);
+			Document game = collection.find(searchQuery).first();
+			
+			i = game.getInteger("turn");
+			
+			@SuppressWarnings("unchecked")
+			List<Document> piecesDoc = (List<Document>) game.get("pieces");
+			
+			for(Document piece : piecesDoc) {
+				int coord_row = piece.getInteger("coord_row");
+				int coord_column = piece.getInteger("coord_column");
+				int piece_type = piece.getInteger("piece_type");
+				boolean moved = piece.getBoolean("moved");
+				int piece_color = piece.getInteger("piece_color");
+				int index = piece.getInteger("index");
 				pieceBox[piece_color].getPieces()[index] = new Piece(new Coordinates(coord_row, coord_column),
 						PieceInfo.values()[piece_type], moved, ColorInfo.values()[piece_color]);
 				pieceBox[piece_color].getPieces()[index].setIndex(index);
 			}
-			rs.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null) {
-					connection.close(); // Close database connection
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-			try {
-				if (connection != null) {
-					connection.close(); // Close database connection
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
+			throw new RuntimeException(e);
 		}
 		return ColorInfo.values()[i];
 	}
@@ -73,43 +58,21 @@ public class LoadGame {
 	public static ArrayList<String> loadNames() throws Exception {
 
 		ArrayList<String> games = new ArrayList<String>();
-
-		connection = DatabaseConnection.newConnection(); // Connect to database
-
-		// Creates a Statement object for sending SQL statements to the database
-		Statement stmt = connection.createStatement();
-
 		try {
-			/* Get all saved games */
-			String sql = " SELECT * FROM save_game";
-			ResultSet rs = stmt.executeQuery(sql);
-
-			/* Add to the list all saved game names and dates */
-			while (rs.next()) {
-				games.add(rs.getString("name") + " " + rs.getString("save_date"));
+			if(db == null) {
+				db = DatabaseConnection.newConnection(); // Connect to database
 			}
-			rs.close();
+			collection = db.getCollection("games");
+			FindIterable<Document> gameSaves = collection.find();
+			for(Document save : gameSaves) {
+				System.out.println(save);
+				String saveName = save.getString("saveName");
+				games.add(saveName);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (stmt != null) {
-					connection.close(); // Close database connection
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-			try {
-				if (connection != null) {
-					connection.close(); // Close database connection
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
 		}
 		return games; // Return the list
 	}
