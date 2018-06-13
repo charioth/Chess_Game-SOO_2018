@@ -1,11 +1,11 @@
-package states;
+package controller.states;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import game.Game;
-import graphics.UIList;
-import graphics.UIScrollScreen;
+import models.game.Game;
+import view.graphics.UIList;
+import view.graphics.UIScrollScreen;
 
 public abstract class State {
 	/*

@@ -1,4 +1,4 @@
-package pieces;
+package models.pieces;
 
 public enum PieceInfo {
 	/* Piece types */

@@ -1,4 +1,4 @@
-package input;
+package controller.input;
 
 import java.awt.event.MouseEvent;
 
@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import states.State;
+import controller.states.State;
 
 public class MouseManager implements MouseListener, MouseMotionListener, MouseWheelListener {
 	/*

@@ -1,14 +1,14 @@
-package game;
+package models.game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import display.Display;
-import input.KeyManager;
-import input.MouseManager;
-import states.GameState;
-import states.MenuState;
-import states.State;
+import controller.input.KeyManager;
+import controller.input.MouseManager;
+import controller.states.GameState;
+import controller.states.MenuState;
+import controller.states.State;
+import view.display.Display;
 
 public class Game implements Runnable {
 	/*

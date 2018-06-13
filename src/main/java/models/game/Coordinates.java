@@ -1,4 +1,4 @@
-package game;
+package models.game;
 
 public class Coordinates {
 	/* The coordinates of a given point */

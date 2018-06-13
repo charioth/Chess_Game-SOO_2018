@@ -1,4 +1,4 @@
-package game;
+package models.game;
 
 public enum ColorInfo {
 	/* Defines the colors of each side */

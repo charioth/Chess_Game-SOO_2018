@@ -1,4 +1,4 @@
-package states;
+package controller.states;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -8,18 +8,18 @@ import java.util.List;
 
 import database.LoadGame;
 import database.SaveGame;
-import game.ColorInfo;
-import game.Game;
-import game.BoardMovements;
-import game.Coordinates;
-import game.Square;
-import graphics.ButtonAction;
-import graphics.UIButton;
-import graphics.UIList;
-import graphics.UIScrollScreen;
-import loader.ImageLoader;
-import pieces.PieceInfo;
-import pieces.PieceList;
+import models.game.BoardMovements;
+import models.game.ColorInfo;
+import models.game.Coordinates;
+import models.game.Game;
+import models.game.Square;
+import models.pieces.PieceInfo;
+import models.pieces.PieceList;
+import view.graphics.ButtonAction;
+import view.graphics.UIButton;
+import view.graphics.UIList;
+import view.graphics.UIScrollScreen;
+import view.loader.ImageLoader;
 
 public class GameState extends State {
 	/* Game screen state it is the game screen where all the movements and action occurs */

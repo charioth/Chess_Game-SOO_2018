@@ -9,8 +9,8 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import pieces.Piece;
-import pieces.PieceList;
+import models.pieces.Piece;
+import models.pieces.PieceList;
 
 public class SaveGame {
 

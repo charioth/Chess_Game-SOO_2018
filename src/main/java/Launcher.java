@@ -1,5 +1,5 @@
 
-import game.Game;
+import models.game.Game;
 
 public class Launcher {
 	public static void main(String[] args) throws  Exception

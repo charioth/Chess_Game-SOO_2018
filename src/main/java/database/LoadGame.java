@@ -10,11 +10,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import game.ColorInfo;
-import game.Coordinates;
-import pieces.Piece;
-import pieces.PieceInfo;
-import pieces.PieceList;
+import models.game.ColorInfo;
+import models.game.Coordinates;
+import models.pieces.Piece;
+import models.pieces.PieceInfo;
+import models.pieces.PieceList;
 
 public class LoadGame {
 

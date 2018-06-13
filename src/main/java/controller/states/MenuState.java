@@ -1,4 +1,4 @@
-package states;
+package controller.states;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 import database.DeleteGame;
 import database.LoadGame;
-import game.Game;
-import graphics.ButtonAction;
-import graphics.Text;
-import graphics.UIButton;
-import graphics.UIList;
-import graphics.UIScrollScreen;
-import loader.ImageLoader;
+import models.game.Game;
+import view.graphics.ButtonAction;
+import view.graphics.Text;
+import view.graphics.UIButton;
+import view.graphics.UIList;
+import view.graphics.UIScrollScreen;
+import view.loader.ImageLoader;
 
 public class MenuState extends State {
 	/*  Menu screen state it is the initial screen of the game it control the new button and the load button*/

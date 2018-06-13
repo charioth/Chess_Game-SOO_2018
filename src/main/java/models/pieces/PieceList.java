@@ -1,7 +1,7 @@
-package pieces;
+package models.pieces;
 
-import game.ColorInfo;
-import game.Coordinates;
+import models.game.ColorInfo;
+import models.game.Coordinates;
 
 public class PieceList {
 	/* All the pieces of a color */

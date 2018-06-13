@@ -1,4 +1,4 @@
-package game;
+package models.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import input.MouseManager;
-import pieces.Piece;
-import pieces.PieceInfo;
-import pieces.PieceList;
+import controller.input.MouseManager;
+import models.pieces.Piece;
+import models.pieces.PieceInfo;
+import models.pieces.PieceList;
 
 public class BoardMovements {
 	public static List<Coordinates> validMoves;

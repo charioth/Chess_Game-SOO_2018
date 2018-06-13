@@ -1,4 +1,4 @@
-package graphics;
+package view.graphics;
 
 public interface ButtonAction {
 	/* Interface class used to program the button action */

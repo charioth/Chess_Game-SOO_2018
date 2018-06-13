@@ -1,13 +1,13 @@
-package pieces;
+package models.pieces;
 
 import java.util.List;
 
 import org.bson.Document;
 
-import game.BoardMovements;
-import game.ColorInfo;
-import game.Coordinates;
-import game.Square;
+import models.game.BoardMovements;
+import models.game.ColorInfo;
+import models.game.Coordinates;
+import models.game.Square;
 
 public class Piece {
 	private Coordinates actualPosition;
