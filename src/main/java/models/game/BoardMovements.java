@@ -11,6 +11,9 @@ import models.pieces.Piece;
 import models.pieces.PieceInfo;
 import models.pieces.PieceList;
 
+/**
+ * Class with static methods used to select pieces and assess special movements
+ */
 public class BoardMovements {
 	public static List<Coordinates> validMoves;
 	public static List<Coordinates> specialMoves;
@@ -20,6 +23,16 @@ public class BoardMovements {
 	public static boolean elpassant;
 	public static Coordinates lastPawn;
 
+	/**
+	  * Select a piece using the mouse
+	  * 
+	  * @param mouse		Mouse manager used the keep track of the mouse position and left clicks
+	  * @param pieceBox		Array with the pieces
+	  * @param board		Game board
+	  * @param turn			The color of the active player
+	  * @param row			The row where the mouse clicked
+	  * @param column		The column where the mouse clicked
+	  */
 	public static void selectPiece(final MouseManager mouse, final PieceList pieceBox[], final Square board[][],
 			ColorInfo turn, int row, int column) {
 		/* Select a piece using the mouse input */
@@ -116,7 +129,15 @@ public class BoardMovements {
 			specialMoves.clear();
 		}
 	}
-
+	
+	/**
+	  * Used to validate the piece move
+	  * 
+	  * @param mouse		Mouse manager used the keep track of the mouse position and left clicks
+	  * @param row			The row where the mouse clicked
+	  * @param column		The column where the mouse clicked
+	  * @return				True if the move is valid, false if not
+	  */
 	public static boolean isValidMove(MouseManager mouse, int row, int column) {
 		/* Checks if the chosen movement is valid for the piece */
 		if (mouse.isLeftButtonPressed()) {
@@ -186,7 +207,17 @@ public class BoardMovements {
 			specialMoves.clear();
 		}
 	}
-
+	
+	/**
+	  * Move the piece to the selected location
+	  * 
+	  * @param piece			The piece that was selected and will be moved
+	  * @param board			Game board
+	  * @param pieceBox			The array with all the pieces
+	  * @param turn				The color of the active player
+	  * @param row				Row where the piece is going
+	  * @param column			Column where the piece is going
+	  */
 	public static void movePiece(Piece piece, Square board[][], PieceList[] pieceBox, ColorInfo turn, int row,
 			int column) {
 		/* Move the selected piece */
@@ -297,7 +328,18 @@ public class BoardMovements {
 		}
 		return false; // No piece threaten the king
 	}
-
+	
+	/**
+	  * Check if the piece can capture another piece
+	  * 
+	  * @param board			Game board
+	  * @param piece			The piece that was selected
+	  * @param pieceColor		The color of the piece
+	  * @param pieceBox			The array with all the pieces
+	  * @param validList		If the attack is valid, it's appended to this list
+	  * @param row				Row that the piece may be attacking
+	  * @param column			Column that the piece may be attacking
+	  */
 	public static void validateAttack(final Square board[][], Piece piece, ColorInfo pieceColor, PieceList[] pieceBox,
 			List<Coordinates> validList, int row, int column) {
 		/* Mark the piece as dead to validate the movement */
@@ -311,7 +353,18 @@ public class BoardMovements {
 		/* Revive the piece */
 		pieceBox[board[row][column].getColor().value].getPieces()[board[row][column].getPieceID()].setType(temp);
 	}
-
+	
+	/**
+	  * Check if the piece can move to a square
+	  * 
+	  * @param board		Game board
+	  * @param piece		The piece that was selected
+	  * @param pieceColor	The color of the piece
+	  * @param pieceBox		The array with all the pieces
+	  * @param validList	If the move is valid, it's appended to this list
+	  * @param row			Row that the piece may move to
+	  * @param column		Column that the piece may move to
+	  */
 	public static void validateMovement(final Square board[][], Piece piece, ColorInfo pieceColor, PieceList[] pieceBox,
 			List<Coordinates> validList, int row, int column) {
 		/* Copy the board and validates the movement, seeing if the king is left checked */
@@ -323,6 +376,14 @@ public class BoardMovements {
 		}
 	}
 
+	/**
+	  * Check if the game is in a stalemate
+	  * 
+	  * @param board		Game board
+	  * @param pieceBox		The array with all the pieces
+	  * @param turn			The active player color
+	  * @return				True if the game is in a stalemate, false otherwise
+	  */
 	public static boolean isStaleMate(final Square board[][], PieceList[] pieceBox, ColorInfo turn) {
 		/* Stalemate happens when a player cannot move any piece and his king is not in check */
 		List<Coordinates> testStalemate = new ArrayList<Coordinates>();
@@ -340,6 +401,14 @@ public class BoardMovements {
 		return true; // Impossible to move a piece
 	}
 
+	/**
+	  * Used to see if a checkmate happened 
+	  * 
+	  * @param board		Game board
+	  * @param turn			The active player color
+	  * @param pieceBox		The array with all the pieces
+	  * @return				True if the checkmate happened, false otherwise
+	  */
 	public static boolean isCheckmate(final Square board[][], ColorInfo turn, PieceList[] pieceBox) {
 		Piece king = pieceBox[turn.value].getPieces()[0];
 		List<Coordinates> testCheckmate = new ArrayList<Coordinates>();
@@ -352,7 +421,13 @@ public class BoardMovements {
 		}
 		return false;
 	}
-
+	
+	/**
+	  * Used to see if the piece is a pawn and can be promoted
+	  * 
+	  * @param movedPawn	The piece to be verified
+	  * @return				True if the piece is a pawn AND can be promoted, false otherwise
+	  */
 	public static boolean promotePawn(Piece movedPawn) {
 		/* When a pawn reaches the other side of the board it can be promoted to another piece */
 		boolean blackPiecePromote = ((movedPawn.getType() == PieceInfo.PAWN)
@@ -361,7 +436,10 @@ public class BoardMovements {
 				&& (movedPawn.getColor() == ColorInfo.WHITE) && (movedPawn.getActualPosition().getRow() == 0));
 		return (blackPiecePromote || whitePiecePromote);
 	}
-
+	
+	/**
+	  * Initialize the piece movements accordingly to the game rules
+	  */
 	public static void initializePieceMovements() {
 		/* Determines the rules of piece movements, each list of a piece is a direction */
 
@@ -424,7 +502,13 @@ public class BoardMovements {
 		possiblePiecesMovements.put(PieceInfo.BISHOP, bishopMovements);
 		possiblePiecesMovements.put(PieceInfo.KNIGHT, knightMovements);
 	}
-
+	
+	/**
+	  * Copies the given board
+	  * 
+	  * @param board	The board to be copied
+	  * @return			The copy
+	  */
 	public static Square[][] copyBoard(final Square[][] board) {
 		Square copy[][] = new Square[8][8];
 		for (int i = 0; i < 8; i++) {

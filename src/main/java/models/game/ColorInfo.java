@@ -1,5 +1,8 @@
 package models.game;
 
+/**
+ * Enum of the colors
+ */
 public enum ColorInfo {
 	/* Defines the colors of each side */
 	WHITE(0), BLACK(1);

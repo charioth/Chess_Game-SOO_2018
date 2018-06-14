@@ -42,7 +42,13 @@ public class Game implements Runnable {
 
 	// Stop condition
 	private boolean running;
-
+	
+	/**
+	  * Create the game object, which will run the game
+	  * 
+	  * @param name		Name that will be displayed in the window
+	  * @param scale	Window scale
+	  */
 	public Game(String name, float scale) {
 		// Constructor of game class, initialize width, height and name to set screen
 		if (scale <= 0)
@@ -112,7 +118,10 @@ public class Game implements Runnable {
 		bs.show();
 		graph.dispose();
 	}
-
+	
+	/**
+	  * Contains the main loop that keeps the game running, until asked to stop
+	  */
 	@Override
 	public void run() {
 		/*
@@ -139,7 +148,10 @@ public class Game implements Runnable {
 			}
 		}
 	}
-
+	
+	/**
+	  * Starts a thread, causing the object's run method to be called in that separately executing thread
+	  */
 	public synchronized void start() {
 		// Method used to start the thread and initialize the running program
 		if (running == true)
@@ -148,7 +160,10 @@ public class Game implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-
+	
+	/**
+	  * Stop the thread and closes the game
+	  */
 	public synchronized void stop() {
 		// Stop the program, it executes when close the program
 		if (running == false)

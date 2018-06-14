@@ -7,15 +7,24 @@ public class PieceList {
 	/* All the pieces of a color */
 	private Piece[] pieces;
 
+	
+	/**
+	  * Initialize empty pieces
+	  */
 	public PieceList() {
 		pieces = new Piece[16];
 	}
-
+	
+	/**
+	  * Initialize the pieces of a given in their standard starting positions in chess
+	  * 
+	  * @param color	Color of the pieces
+	  */
 	public PieceList(ColorInfo color) {
 		pieces = new Piece[16];
 		initPieces(color);
 	}
-
+	
 	private void initPieces(ColorInfo color) {
 		/* Initialize pieces coordinates */
 		int pos = (color == ColorInfo.WHITE ? 7 : 0);
