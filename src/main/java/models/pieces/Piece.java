@@ -15,16 +15,37 @@ public class Piece {
 	private PieceInfo type;
 	private boolean moved;
 	private ColorInfo color;
-
+	
+	/**
+	  * Empty constructor
+	  */
 	public Piece() {}
-
+	
+	/**
+	  * Instantiate a chess piece
+	  * 
+	  * @param actualPosition	The piece position in the board
+	  * @param type				The piece type
+	  * @param moved			If the piece was moved in the game or not
+	  * @param color			The piece color
+	  */
 	public Piece(Coordinates actualPosition, PieceInfo type, boolean moved, ColorInfo color) {
 		this.actualPosition = actualPosition;
 		this.type = type;
 		this.moved = moved;
 		this.color = color;
 	}
-
+	
+	
+	/**
+	  * Calculates all the possible piece movements, considering the type of the piece but not all special rules
+	  * 
+	  * @param validMoves		All movements that the piece can make without capturing another piece are returned here
+	  * @param validAttack		All movements that the piece can make while capturing another piece are returned here
+	  * @param board			Game board
+	  * @param possibleMoves	The possible moves a piece can do, basically the rules that govern its movements
+	  * @param pieceBox			The array with all the pieces
+	  */
 	public void move(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			List<List<Coordinates>> possibleMoves, PieceList[] pieceBox) {
 		/* Choose a movement method based on piece type */
@@ -34,8 +55,16 @@ public class Piece {
 			this.pieceMovements(validMoves, validAttack, board, possibleMoves, pieceBox);
 		}
 	}
-
-	public void pawnMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
+	
+	/**
+	  * Calculates all the possible pawn movements not considering all special rules
+	  * 
+	  * @param validMoves		All movements that the pawn can make without capturing another piece are returned here
+	  * @param validAttack		All movements that the pawn can make while capturing another piece are returned here
+	  * @param board			Game board
+	  * @param pieceBox			The array with all the pieces
+	  */
+	private void pawnMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			PieceList[] pieceBox) {
 
 		int row = this.getActualPosition().getRow(), column = this.getActualPosition().getColumn();
@@ -81,8 +110,17 @@ public class Piece {
 			}
 		}
 	}
-
-	public void pieceMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
+	
+	/**
+	  * Calculates all the possible piece (excluding pawns) movements not considering all special rules
+	  * 
+	  * @param validMoves		All movements that the piece can make without capturing another piece are returned here
+	  * @param validAttack		All movements that the piece can make while capturing another piece are returned here
+	  * @param board			Game board
+	  * @param possibleMoves	The possible moves a piece can do, basically the rules that govern its movements
+	  * @param pieceBox			The array with all the pieces
+	  */
+	private void pieceMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			List<List<Coordinates>> possibleMoves, PieceList[] pieceBox) {
 		int row, column, i;
 
@@ -112,6 +150,9 @@ public class Piece {
 		}
 	}
 	
+	/**
+	  * Map the piece attributes the a BSON Document
+	  */
 	public Document pieceToDoc() {
 		return new Document("coord_row", this.getActualPosition().getRow())
 				.append("coord_column", this.getActualPosition().getColumn())
