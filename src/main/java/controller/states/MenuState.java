@@ -36,7 +36,12 @@ public class MenuState extends State {
 		super(game);
 		State.loadMenuState = true;
 	}
-
+	
+	/**
+	 * Control what buttons should be rendered, depending on the menu
+	 * 
+	 * @return The menu to be rendered, if there is any
+	 */
 	@Override
 	public UIList getUIButtons() {
 		/*Control of active buttons*/
@@ -46,7 +51,12 @@ public class MenuState extends State {
 			return loadSubMenu;
 		}
 	}
-
+	
+	/**
+	 * Control what buttons should be rendered, depending on the submenu
+	 * 
+	 * @return The load screen to be rendered, if it should be rendered
+	 */
 	@Override
 	public UIScrollScreen getScreen() {
 		/*control if scroll buttons are active*/
@@ -55,7 +65,10 @@ public class MenuState extends State {
 		else
 			return null;
 	}
-
+	
+	/**
+	 * Used to change the game states and free the used resources
+	 */
 	@Override
 	public void tick() {
 		// If ESC is clicked on the menu screen then the game closes
@@ -92,7 +105,12 @@ public class MenuState extends State {
 		}	
 		
 	}
-
+	
+	/**
+	 * Render the menu in the screen
+	 * 
+	 * @param graph Used to render the menu in the canvas
+	 */
 	@Override
 	public void render(Graphics graph) {
 		if(State.loadMenuState) // Make sure that only render after menu was loaded

@@ -17,8 +17,12 @@ public class SaveGame {
 	private static MongoDatabase db;
 	private static MongoCollection<Document> collection;
 	
-	public SaveGame() {}
-
+	/**
+	 * Save the game in the database
+	 * 
+	 * @param actualTurn	The turn of the active player
+	 * @param pieceBox		All the game pieces
+	 */
 	public static void save(int actualTurn, PieceList pieceBox[]) throws Exception {
 		try {
 			if(db == null) {

@@ -11,22 +11,30 @@ import controller.states.State;
 
 public class MouseManager implements MouseListener, MouseMotionListener, MouseWheelListener {
 	/*
-	 * Mouse manager class it implement the actions on the click of the left mouse and keep track of the actual position of the mouse on the screen
+	 * Mouse manager class it implement the actions on the click of the left mouse
+	 * and keep track of the actual position of the mouse on the screen
 	 */
 	private boolean leftButton;
 	private int x = 0, y = 0;
 
-	public MouseManager() {
-	}
-
+	/**
+	 * Checks if the left mouse button was pressed
+	 * 
+	 * @return True if the left mouse button was pressed, false otherwise
+	 */
 	public boolean isLeftButtonPressed() {
 		return leftButton;
 	}
 
+	/**
+	 * In case the left mouse button is hold down this method is called to save the
+	 * state and stop the constant input
+	 * 
+	 * @param leftButton
+	 *            The button state in case its hold down
+	 * @return True if the state is true, false otherwise
+	 */
 	public boolean setLeftButtonPressed(boolean leftButton) {
-		/*
-		 * In case that the person keeps holding the left mouse button this method can be called out and stop manually the constant input of the holding
-		 */
 		return this.leftButton = leftButton;
 	}
 
@@ -61,7 +69,8 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
 		if (State.getCurrentState().getScreen() != null) {
 			State.getCurrentState().getScreen().sMouseRelease();
 		}
-		// If there is a button list on the current state, call it and execute the MouseRelease of each button
+		// If there is a button list on the current state, call it and execute the
+		// MouseRelease of each button
 		else if (State.getCurrentState().getUIButtons() != null) {
 			State.getCurrentState().getUIButtons().bMouseRelease();
 		}
@@ -74,7 +83,6 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
 
 	@Override
 	public void mouseEntered(MouseEvent mouse) {
-
 	}
 
 	@Override
@@ -83,13 +91,14 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
 
 	@Override
 	public void mouseDragged(MouseEvent mouse) {
-
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent mouse) {
 		/*
-		 * Every mouse movement this method is called and it checks if the current state has a button list, if it is true then call the mouseMoved method of each button on the list
+		 * Every mouse movement this method is called and it checks if the current state
+		 * has a button list, if it is true then call the mouseMoved method of each
+		 * button on the list
 		 */
 		if (State.getCurrentState().getScreen() != null) {
 			State.getCurrentState().getScreen().sMouseMoved(mouse);
@@ -104,5 +113,4 @@ public class MouseManager implements MouseListener, MouseMotionListener, MouseWh
 			State.getCurrentState().getScreen().sMouseScroll(mouse);
 		}
 	}
-
 }

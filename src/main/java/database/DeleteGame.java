@@ -10,6 +10,11 @@ public class DeleteGame {
 	private static MongoDatabase db;
 	private static MongoCollection<Document> collection;
 	
+	/**
+	 * Delete a given game from the database
+	 * 
+	 * @param gameName The name of the game to be deleted
+	 */
 	public static void Delete(String gameName) throws Exception {
 		try {
 			if(db == null) {

@@ -22,7 +22,12 @@ public abstract class State {
 	protected static boolean loadMenuState;
 
 	protected Game game;
-
+	
+	/**
+	 * Initializes the game states
+	 * 
+	 * @param game The game object to be initialized
+	 */
 	State(Game game) {
 		this.game = game;
 		savedGames = new ArrayList<>();

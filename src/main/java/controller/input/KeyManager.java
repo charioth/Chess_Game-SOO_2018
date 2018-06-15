@@ -8,24 +8,23 @@ public class KeyManager implements KeyListener {
 	private boolean[] keys;
 	public boolean mESC;
 	private boolean once = true;
-
+	
+	/**
+	 * Initialize a class instance, mapping the keyboard keys
+	 */
 	public KeyManager() {
 		/* Boolean buffer to map every possible key */
 		keys = new boolean[256];
 	}
 
+	/**
+	 * Check if the key on the ESCAPE position was pressed each tick once attribute controls that the click happens only one time (tick executes pretty fast so it needs a control to not allow multiples call
+	 */
 	public void tick() {
-		/*
-		 * Check if the key on the ESCAPE position was pressed each tick once attribute controls that the click happens only one time (tick executes pretty fast so it needs a control to not allow multiples call
-		 */
 		if (keys[KeyEvent.VK_ESCAPE] & once) {
 			mESC = true;
 			once = false;
 		}
-	}
-
-	public void render() {
-
 	}
 
 	@Override
@@ -42,6 +41,5 @@ public class KeyManager implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent key) {
-	}
+	public void keyTyped(KeyEvent key) {}
 }
