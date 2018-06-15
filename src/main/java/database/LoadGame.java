@@ -1,6 +1,5 @@
 package database;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,14 @@ public class LoadGame {
 
 	private static MongoDatabase db;
 	private static MongoCollection<Document> collection;
-
+	
+	/**
+	 * Load a given game from the database
+	 * 
+	 * @param gameName Name of the game to be loaded
+	 * @param pieceBox Return the pieces of the game initialized
+	 * @return The color of the active player
+	 */
 	public static ColorInfo loadGame(String gameName, PieceList pieceBox[]) throws Exception {
 		int i;
 		
@@ -54,7 +60,12 @@ public class LoadGame {
 		}
 		return ColorInfo.values()[i];
 	}
-
+	
+	/**
+	 * Get the names of all saved games from the database
+	 * 
+	 * @return An array list with the names of all saved games
+	 */
 	public static ArrayList<String> loadNames() throws Exception {
 
 		ArrayList<String> games = new ArrayList<String>();

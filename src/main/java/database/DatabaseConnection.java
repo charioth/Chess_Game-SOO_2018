@@ -7,6 +7,11 @@ public class DatabaseConnection {
 	private static MongoClient client;
 	private static String databaseName = "chessGame";
 	
+	/**
+	  * Create a new connection with a MongoDB database
+	  * 
+	  * @return a new connection with a MongoDB database
+	  */
 	public synchronized static MongoDatabase newConnection() throws Exception {
 		if(client != null) {
 			return client.getDatabase(databaseName);

@@ -11,7 +11,14 @@ public class Display {
 
 	private String title;
 	private int width, height;
-
+	
+	/**
+	 * Initalizes the display
+	 * 
+	 * @param title		Game title
+	 * @param width		Display width
+	 * @param height	Display height
+	 */
 	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -43,7 +50,10 @@ public class Display {
 		frame.add(canvas);
 		frame.pack();
 	}
-
+	
+	/**
+	 * Close the display
+	 */
 	public void closeDisplay() {
 		// Dispose of the frame window
 		frame.dispose();
