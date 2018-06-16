@@ -5,11 +5,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class UIList {
-	/*
-	 * Class that contains a list of the buttons initialized it makes easy to call all render methods and create new buttons
-	 */
+
 	private ArrayList<UIButton> buttons;
 
+	/**
+	 * Constructor contains a list of the buttons initialized it makes easy to call
+	 * all render methods and create new buttons
+	 */
 	public UIList() {
 		buttons = new ArrayList<UIButton>();
 	}
