@@ -356,7 +356,7 @@ public class GameState extends State {
 		int step = (int) (145 * game.getScale());
 		promotionChoices = new ArrayList<>();
 		promoteBackground = ImageLoader.loadImage("/background/promote.png");
-		for (int i = 0, initialPosition = 248; i < 4; i++, initialPosition += step) {
+		for (int i = 0, initialPosition = squareSize*2; i < 4; i++, initialPosition += step) {
 			promotionChoices.add(new Rectangle(initialPosition, (int) ((game.getHeight() / 2) + (game.getScale() * 10)),
 					squareSize, squareSize));
 		}
