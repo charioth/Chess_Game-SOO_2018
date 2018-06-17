@@ -22,8 +22,7 @@ public class DeleteGame {
 			}
 			collection = db.getCollection("games");		
 			Document searchQuery = new Document("saveName", gameName);
-			Document game = collection.find(searchQuery).first();
-			System.out.println(game);
+			collection.deleteOne(searchQuery);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
