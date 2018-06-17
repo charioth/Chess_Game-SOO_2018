@@ -25,17 +25,17 @@ public class UIScrollScreen {
 	 * buttons object in this area
 	 * 
 	 * @param screenImage
-	 *            screenImage is the background image of the scroll area
+	 *            ScreenImage is the background image of the scroll area
 	 * @param x
-	 *            the x axis position of the scroll window in canvas
+	 *            The x axis position of the scroll window in canvas
 	 * @param y
-	 *            the y axis position of the scroll window in canvas
+	 *            The y axis position of the scroll window in canvas
 	 * @param width
-	 *            scroll screen width in pixel value
+	 *            Scroll screen width in pixel value
 	 * @param height
-	 *            scroll screen height in pixel value
+	 *            Scroll screen height in pixel value
 	 * @param speed
-	 *            controls the speed of the scroll (how many pixel to move when
+	 *            Controls the speed of the scroll (how many pixel to move when
 	 *            scroll occurs)
 	 * 
 	 */
@@ -64,7 +64,7 @@ public class UIScrollScreen {
 	 * Render the buttons that are in the scroll screen area
 	 * 
 	 * @param graphic
-	 *            object that allow to draw and render the buttons in a canvas
+	 *            Object that allow to draw and render the buttons in a canvas
 	 */
 	public void render(Graphics graph) {
 		/*
@@ -120,7 +120,7 @@ public class UIScrollScreen {
 	 * keep track if it`s still inside the scroll image
 	 * 
 	 * @param mouse
-	 *            parameter used to keep track of the mouse position and scroll
+	 *            Parameter used to keep track of the mouse position and scroll
 	 *            down/up response
 	 */
 	public void sMouseScroll(MouseWheelEvent mouse) {

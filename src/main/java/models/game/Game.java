@@ -12,7 +12,8 @@ import view.display.Display;
 
 public class Game implements Runnable {
 	/*
-	 * Class responsible for starting the game by calling all Main classes as attributes and main methods of tick (), render () and run
+	 * Class responsible for starting the game by calling all Main classes as
+	 * attributes and main methods of tick (), render () and run
 	 */
 
 	// Screen Attributes
@@ -42,13 +43,15 @@ public class Game implements Runnable {
 
 	// Stop condition
 	private boolean running;
-	
+
 	/**
-	  * Create the game object, which will run the game
-	  * 
-	  * @param name		Name that will be displayed in the window
-	  * @param scale	Window scale
-	  */
+	 * Create the game object, which will run the game
+	 * 
+	 * @param name
+	 *            Name that will be displayed in the window
+	 * @param scale
+	 *            Window scale
+	 */
 	public Game(String name, float scale) {
 		// Constructor of game class, initialize width, height and name to set screen
 		if (scale <= 0)
@@ -69,7 +72,8 @@ public class Game implements Runnable {
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 
-		// For the input to work the screen must know that it should respond, so add mouse and keyboard to the Frame and Canvas
+		// For the input to work the screen must know that it should respond, so add
+		// mouse and keyboard to the Frame and Canvas
 		display.getFrame().addMouseListener(mouse);
 		display.getFrame().addMouseMotionListener(mouse);
 		display.getFrame().addMouseWheelListener(mouse);
@@ -83,7 +87,8 @@ public class Game implements Runnable {
 
 	private void tick() {
 		/*
-		 * Tick method is called 60 times per second by the run method. It call the method of the current state selected
+		 * Tick method is called 60 times per second by the run method. It call the
+		 * method of the current state selected
 		 */
 
 		// Tick to see if any key was pressed
@@ -96,7 +101,8 @@ public class Game implements Runnable {
 
 	private void render() {
 		/*
-		 * Method responsible for controlling the canvas doble buffer control It creates the buffer if it was not already created clean the screen and draw
+		 * Method responsible for controlling the canvas doble buffer control It creates
+		 * the buffer if it was not already created clean the screen and draw
 		 */
 
 		// if there is not a buffer to swap when drawing, then create a buffer
@@ -118,17 +124,19 @@ public class Game implements Runnable {
 		bs.show();
 		graph.dispose();
 	}
-	
+
 	/**
-	  * Contains the main loop that keeps the game running, until asked to stop
-	  */
+	 * Contains the main loop that keeps the game running, until asked to stop
+	 */
 	@Override
 	public void run() {
 		/*
-		 * Run has the main loop of the game if executes the tick and render of the game 60 times per second
+		 * Run has the main loop of the game if executes the tick and render of the game
+		 * 60 times per second
 		 */
 
-		// Delta has the somatory of the difference between the last tick and the actual tick
+		// Delta has the somatory of the difference between the last tick and the actual
+		// tick
 		double delta = 0.0;
 		long now; // Actual time
 		long lastTime = System.nanoTime(); // Last time
@@ -148,10 +156,11 @@ public class Game implements Runnable {
 			}
 		}
 	}
-	
+
 	/**
-	  * Starts a thread, causing the object's run method to be called in that separately executing thread
-	  */
+	 * Starts a thread, causing the object's run method to be called in that
+	 * separately executing thread
+	 */
 	public synchronized void start() {
 		// Method used to start the thread and initialize the running program
 		if (running == true)
@@ -160,10 +169,10 @@ public class Game implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	/**
-	  * Stop the thread and closes the game
-	  */
+	 * Stop the thread and closes the game
+	 */
 	public synchronized void stop() {
 		// Stop the program, it executes when close the program
 		if (running == false)

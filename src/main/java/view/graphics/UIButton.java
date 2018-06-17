@@ -33,17 +33,17 @@ public class UIButton {
 	 * @param y
 	 *            y axis coordinate of the button in the screen
 	 * @param width
-	 *            button width in pixel value
+	 *            Button width in pixel value
 	 * @param height
-	 *            button height in pixel value
+	 *            Button height in pixel value
 	 * @param button
-	 *            define two images to define the button
+	 *            Define two images to define the button
 	 * 
 	 * @param index
-	 *            allow to define a intern index value to the button
+	 *            Allow to define a intern index value to the button
 	 * 
 	 * @param click
-	 *            allow to define the action to execute when the button is clicked
+	 *            Allow to define the action to execute when the button is clicked
 	 */
 
 	public UIButton(int x, int y, int width, int height, BufferedImage button[], int index, ButtonAction click) {
@@ -69,20 +69,20 @@ public class UIButton {
 	 * @param y
 	 *            y axis coordinate of the button in the screen
 	 * @param width
-	 *            button width in pixel value
+	 *            Button width in pixel value
 	 * @param height
-	 *            button height in pixel value
+	 *            Button height in pixel value
 	 * @param button
-	 *            define two images to define the button
+	 *            Define two images to define the button
 	 * 
 	 * @param index
-	 *            allow to define a intern index value to the button
+	 *            Allow to define a intern index value to the button
 	 * 
 	 * @param text
-	 *            define a text to be rendered inside the button box
+	 *            Define a text to be rendered inside the button box
 	 * 
 	 * @param click
-	 *            allow to define the action to execute when the button is clicked
+	 *            Allow to define the action to execute when the button is clicked
 	 */
 	// Constructor that use one Text
 	public UIButton(int x, int y, int width, int height, BufferedImage button[], int index, Text text,
@@ -110,21 +110,21 @@ public class UIButton {
 	 * @param y
 	 *            y axis coordinate of the button in the screen
 	 * @param width
-	 *            button width in pixel value
+	 *            Button width in pixel value
 	 * @param height
-	 *            button height in pixel value
+	 *            Button height in pixel value
 	 * @param button
-	 *            define two images to define the button
+	 *            Define two images to define the button
 	 * 
 	 * @param index
-	 *            allow to define a intern index value to the button
+	 *            Allow to define a intern index value to the button
 	 * 
 	 * @param text
-	 *            define a array text to be rendered inside the button box to allow
+	 *            Define a array text to be rendered inside the button box to allow
 	 *            the text change when mouse over
 	 * 
 	 * @param click
-	 *            allow to define the action to execute when the button is clicked
+	 *            Allow to define the action to execute when the button is clicked
 	 */
 	// Constructor that use two Texts
 	public UIButton(int x, int y, int width, int height, BufferedImage button[], int index, Text text[],
@@ -146,7 +146,7 @@ public class UIButton {
 	 * the action click happens while the mouse is over the button
 	 * 
 	 * @param graphic
-	 *            object that allow to draw and render the button in a canvas object
+	 *            Object that allow to draw and render the button in a canvas object
 	 * 
 	 */
 	public void render(Graphics graph) {
@@ -174,7 +174,7 @@ public class UIButton {
 	 * clicked image if not then on button is false
 	 * 
 	 * @param mouse
-	 *            it`s a MouseEvent object used to track the current coordinates of
+	 *            It`s a MouseEvent object used to track the current coordinates of
 	 *            the cursor on the screen
 	 */
 	public void bMouseMoved(MouseEvent mouse) {

@@ -190,7 +190,8 @@ public class GameState extends State {
 	/**
 	 * Render the game in the screen
 	 * 
-	 * @param graph Used to render the game in the canvas
+	 * @param graph
+	 *            Used to render the game in the canvas
 	 */
 	@Override
 	public void render(Graphics graph) {
@@ -219,6 +220,12 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Render the screen of options when promote a pawn
+	 * 
+	 * @param graph
+	 *            Used to render the game in the canvas
+	 */
 	private void renderPromoteChoices(Graphics graph) {
 		/* Show on the screen the promote pieces */
 		int i = 1;
@@ -230,6 +237,13 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * When a piece is selected, call this method to render the highlight squares of
+	 * valid, attack and selected positions
+	 * 
+	 * @param graph
+	 *            Used to render the game in the canvas
+	 */
 	private void renderHighlightPath(Graphics graph) {
 		/* Method that highlight valid, attack and selected positions */
 
@@ -259,6 +273,12 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Draw all pieces on the screen using the piece position info and images
+	 * 
+	 * @param graph
+	 *            Used to render the game in the canvas
+	 */
 	private void renderPieces(Graphics graph) {
 		/* Method that draw all pieces on the screen */
 
@@ -281,6 +301,13 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Render the submenu when esc button is clicked, to show options of save, exit
+	 * and propose draw
+	 * 
+	 * @param graph
+	 *            Used to render the game in the canvas
+	 */
 	private void renderSubMenu(Graphics graph) {
 		/* Draw the subMenu */
 		graph.drawImage(gameLogo, 0, (int) (100 * game.getScale()), logoWidth, logoHeight, null);
@@ -292,7 +319,7 @@ public class GameState extends State {
 		}
 		getUIButtons().render(graph); // render buttons on the screen
 	}
-	
+
 	/**
 	 * Control what buttons should be rendered, depending on the submenu
 	 * 
@@ -308,11 +335,23 @@ public class GameState extends State {
 		return null;
 	}
 
+	/**
+	 * Internal method used to map the squares of the table in screen coordinates
+	 * 
+	 * @param line
+	 *            Array index of the piece inside the matrix board used to map to
+	 *            coordinates
+	 * @return coordinate mapped value of the index in pixels
+	 */
 	private int move(int line) {
-		/* Internal method used to map the squares of the table in screen coordinates */
 		return edge + (line * moveDistance);
 	}
 
+	/**
+	 * Render the promotion background and possible pieces when a pawn get to the
+	 * and of the board to select
+	 * 
+	 */
 	private void initPromotion() {
 		int step = (int) (145 * game.getScale());
 		promotionChoices = new ArrayList<>();
@@ -323,6 +362,11 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Load in memory all images info of the draw buttons, like positions, images to
+	 * render, size, width and height
+	 * 
+	 */
 	private void initDrawMenuButtons() {
 		BufferedImage[] buttonYes = new BufferedImage[2];
 		BufferedImage[] buttonNo = new BufferedImage[2];
@@ -380,6 +424,10 @@ public class GameState extends State {
 
 	}
 
+	/**
+	 * Load in memory all images info of the submenu buttons/banner, like positions,
+	 * images to render, size, width and height
+	 */
 	private void initSubMenuButtons() {
 		/* Method that initialize all buttons used on the game state */
 		BufferedImage[] buttonSave = new BufferedImage[2];
@@ -484,11 +532,17 @@ public class GameState extends State {
 						}));
 	}
 
+	/**
+	 * When occurs a draw game, call this method to load the draw background
+	 */
 	private void initDrawMenuScreen() {
 		acceptDraw = ImageLoader.loadImage("/button/draw_request_w.png");
 		initDrawMenuButtons();
 	}
 
+	/**
+	 * Load in memory the banner of the submenu
+	 */
 	private void initSubMenuScreen() {
 		gameLogo = ImageLoader.loadImage("/background/exit_logo.png");
 		logoWidth = (int) (((float) gameLogo.getWidth()) * game.getScale());
@@ -496,6 +550,10 @@ public class GameState extends State {
 		initSubMenuButtons();
 	}
 
+	/**
+	 * Load in memory all images used in game, like board, squares and pieces
+	 * 
+	 */
 	private void initGameAssets() {
 		/* Load All utility Info for the game like board, square and pieces */
 		// Render part
@@ -520,8 +578,10 @@ public class GameState extends State {
 		BoardMovements.initializePieceMovements(); // Pieces movement rules
 	}
 
+	/**
+	 * Release all submenu images from memory
+	 */
 	private void releaseUIButtons() {
-		/* Release all submenu memory */
 		gameLogo = null;
 		if (subMenuButtons != null) {
 			subMenuButtons.getButtons().clear();
@@ -534,8 +594,10 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Method that initialize all pieces at default position
+	 */
 	private void newGame() {
-		/* Method that initialize all pieces at default position */
 		board = new Square[8][8]; // Table of the game
 		pieceBox = new PieceList[2]; // PieceBox has the a array list with all the white pieces and other with the
 										// black pieces
@@ -551,6 +613,12 @@ public class GameState extends State {
 		}
 	}
 
+	/**
+	 * Method that initialize all pieces positions using a saved game from database
+	 * 
+	 * @param gameName
+	 *            Name of the game selected to load from database
+	 */
 	private void loadGame(String gameName) {
 		/* Load the game using a saved game name */
 		board = new Square[8][8]; // Table of the game
@@ -570,6 +638,9 @@ public class GameState extends State {
 		initBoard();
 	}
 
+	/**
+	 * Release all variables memory used to store the game logic
+	 */
 	private void exitGameState() {
 		/* Release all memory used by the game State */
 		game.getMouse().setLeftButtonPressed(false);
@@ -596,6 +667,10 @@ public class GameState extends State {
 		endGame = false;
 	}
 
+	/**
+	 * Initialize all square board coordinates in pixels
+	 * 
+	 */
 	private void initBoard() {
 		// Init all squares and pieces positions
 		for (int i = 0; i < 8; i++) {

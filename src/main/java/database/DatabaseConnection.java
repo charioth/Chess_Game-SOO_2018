@@ -6,17 +6,17 @@ import com.mongodb.client.MongoDatabase;
 public class DatabaseConnection {
 	private static MongoClient client;
 	private static String databaseName = "chessGame";
-	
+
 	/**
-	  * Create a new connection with a MongoDB database
-	  * 
-	  * @return a new connection with a MongoDB database
-	  */
+	 * Create a new connection with a MongoDB database
+	 * 
+	 * @return a new connection with a MongoDB database
+	 */
 	public synchronized static MongoDatabase newConnection() throws Exception {
-		if(client != null) {
+		if (client != null) {
 			return client.getDatabase(databaseName);
 		}
-		
+
 		try {
 			client = new MongoClient("localhost", 27017);
 			return client.getDatabase(databaseName);

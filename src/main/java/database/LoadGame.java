@@ -19,31 +19,33 @@ public class LoadGame {
 
 	private static MongoDatabase db;
 	private static MongoCollection<Document> collection;
-	
+
 	/**
 	 * Load a given game from the database
 	 * 
-	 * @param gameName Name of the game to be loaded
-	 * @param pieceBox Return the pieces of the game initialized
+	 * @param gameName
+	 *            Name of the game to be loaded
+	 * @param pieceBox
+	 *            Return the pieces of the game initialized
 	 * @return The color of the active player
 	 */
 	public static ColorInfo loadGame(String gameName, PieceList pieceBox[]) throws Exception {
 		int i;
-		
+
 		try {
-			if(db == null) {
+			if (db == null) {
 				db = DatabaseConnection.newConnection(); // Connect to database
 			}
-			collection = db.getCollection("games");		
+			collection = db.getCollection("games");
 			Document searchQuery = new Document("saveName", gameName);
 			Document game = collection.find(searchQuery).first();
-			
+
 			i = game.getInteger("turn");
-			
+
 			@SuppressWarnings("unchecked")
 			List<Document> piecesDoc = (List<Document>) game.get("pieces");
-			
-			for(Document piece : piecesDoc) {
+
+			for (Document piece : piecesDoc) {
 				int coord_row = piece.getInteger("coord_row");
 				int coord_column = piece.getInteger("coord_column");
 				int piece_type = piece.getInteger("piece_type");
@@ -60,7 +62,7 @@ public class LoadGame {
 		}
 		return ColorInfo.values()[i];
 	}
-	
+
 	/**
 	 * Get the names of all saved games from the database
 	 * 
@@ -70,12 +72,12 @@ public class LoadGame {
 
 		ArrayList<String> games = new ArrayList<String>();
 		try {
-			if(db == null) {
+			if (db == null) {
 				db = DatabaseConnection.newConnection(); // Connect to database
 			}
 			collection = db.getCollection("games");
 			FindIterable<Document> gameSaves = collection.find();
-			for(Document save : gameSaves) {
+			for (Document save : gameSaves) {
 				System.out.println(save);
 				String saveName = save.getString("saveName");
 				games.add(saveName);
