@@ -8,6 +8,7 @@ import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
 
 import models.pieces.Piece;
 import models.pieces.PieceList;
@@ -18,26 +19,38 @@ public class SaveGame {
 	private static MongoCollection<Document> collection;
 
 	/**
-	 * Save the game in the database
+	 * If it`s a loaded game update the game in the database else save the game
 	 * 
+	 * @param actualGameName
+	 *            name of the game loaded from database else it`s null
 	 * @param actualTurn
 	 *            The turn of the active player
 	 * @param pieceBox
 	 *            All the game pieces
 	 */
-	public static void save(int actualTurn, PieceList pieceBox[]) throws Exception {
+	public static void save(String actualGameName, int actualTurn, PieceList pieceBox[]) throws Exception {
 		try {
 			if (db == null) {
 				db = DatabaseConnection.newConnection(); // Connect to database
 			}
-			collection = db.getCollection("games");
+			collection = db.getCollection("games"); // Get collection of games from database
 
 			Date date = new Date();
 			String gameName = "SaveGame" + String.format("%tH:%tM:%tS", date, date, date); // Time formatted for the
 																							// 24-hour clock as
 																							// "%tH:%tM:%tS"
-			Document saveGave = gameToDoc(gameName, actualTurn, date, pieceBox);
-			collection.insertOne(saveGave);
+			Document query;
+			if (actualGameName == null) { // If it`s not a load game, then use a new game value to insert
+				query = new Document("saveName", gameName);
+			} else { // Else use the old name to only update the fields
+				query = new Document("saveName", actualGameName);
+			}
+
+			Document saveGame = gameToDoc(gameName, actualTurn, date, pieceBox);
+			UpdateOptions options = new UpdateOptions().upsert(true); // Upsert true, if query is true than update else
+																		// insert
+
+			collection.replaceOne(query, saveGame, options);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

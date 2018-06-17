@@ -485,7 +485,7 @@ public class GameState extends State {
 								/* Save button action implements */
 								// System.out.println("Save a game name");
 								try {
-									SaveGame.save(actualTurn.value, pieceBox);
+									SaveGame.save(actualGameName ,actualTurn.value, pieceBox);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -602,6 +602,7 @@ public class GameState extends State {
 		pieceBox = new PieceList[2]; // PieceBox has the a array list with all the white pieces and other with the
 										// black pieces
 		initGameAssets();
+		actualGameName = null;
 		State.newGame = false;
 		actualTurn = ColorInfo.WHITE;
 		pieceBox[0] = new PieceList(ColorInfo.WHITE);
@@ -621,6 +622,7 @@ public class GameState extends State {
 	 */
 	private void loadGame(String gameName) {
 		/* Load the game using a saved game name */
+		actualGameName = gameName;
 		board = new Square[8][8]; // Table of the game
 		pieceBox = new PieceList[2];
 		pieceBox[0] = new PieceList();

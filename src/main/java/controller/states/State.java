@@ -18,6 +18,7 @@ public abstract class State {
 	// MenuState to gameState signals
 	protected static boolean newGame;
 	protected static boolean loadGame;
+	protected String actualGameName;
 	protected static ArrayList<String> savedGames;
 
 	// GameState to MenuState signals
