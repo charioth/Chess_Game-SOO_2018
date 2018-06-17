@@ -67,6 +67,15 @@ public class BoardMovements {
 		}
 	}
 
+	/**
+	 * When a king is selected check if castling is available
+	 * 
+	 * @param piece	 		Selected piece used to check if it`s a king
+	 * @param pieceBox 		Array that has all pieces info from the game
+	 * @param board Game 	Board that hold piece positions info
+	 * @param validMoves 	List with all pieces valid movies
+	 * @param specialMoves 	List with all special moves valid positions
+	 */
 	private static void castlingValidMove(Piece piece, PieceList[] pieceBox, Square[][] board,
 			List<Coordinates> validMoves, List<Coordinates> specialMoves) {
 		/* Check if the special movement can be activate to the selected king */
@@ -104,9 +113,18 @@ public class BoardMovements {
 		}
 	}
 
+	/**
+	 * If the castling movement is valid than execute the logic to change the king position with a tower
+	 * 
+	 * @param piece			 Selected piece used to check if it`s a king
+	 * @param pieceBox		 Array that has all pieces info from the game
+	 * @param board Game	 Board that hold piece positions info
+	 * @param position		 Position get from a mouse click used to check if it`s a valid square
+	 * @param specialMoves	 List with all special moves valid positions
+	 */
 	private static void castlingMovement(Piece piece, PieceList[] pieceBox, Square[][] board, Coordinates position,
 			List<Coordinates> specialMoves) {
-		/* Change the tower position if the special move was chosen */
+		/*  */
 		if ((piece.getType() == PieceInfo.KING) && (specialMoves.size() > 0)) // Check if the piece is a king and there is a valid specialMoves
 		{
 			if (specialMoves.contains(position)) // See if the position choose as destination is a special move square
@@ -155,14 +173,29 @@ public class BoardMovements {
 		return false;
 	}
 
+	/**
+	 * After a pawn clicked on a valid space and is moving two squares in front elPassant become true
+	 * 
+	 * @param row 		The row where the mouse clicked
+	 * @param column 	The column where the mouse clicked
+	 */
 	private static void elPassantActive(int row, int column) {
-		/* After a pawn clicked on a valid space and is moving two squares in front elPassant become true */
 		if (selectedPiece.getType() == PieceInfo.PAWN && !selectedPiece.isMoved() && !validMoves.isEmpty()) {
 			elpassant = validMoves.get(0).equals(row, column);
 			lastPawn = validMoves.get(0);
 		}
 	}
 
+	/**
+	 * Check if the actual selected pawn has any opponent pawn that jumped to his side
+	 * making a elPassant move valid
+	 * 
+	 * @param piece  		Selected piece used to check pawn info
+	 * @param pieceBox 		Array that has all pieces info from the game
+	 * @param board 		Board that hold piece positions info
+	 * @param validMoves	List with all pieces valid movies
+	 * @param specialMoves 	List with all special moves valid positions
+	 */
 	private static void elPassantValidMove(Piece piece, PieceList[] pieceBox, Square[][] board,
 			List<Coordinates> validMoves, List<Coordinates> specialMoves) {
 		int side = piece.getColor() == ColorInfo.WHITE ? -1 : 1;
@@ -191,6 +224,16 @@ public class BoardMovements {
 		}
 	}
 
+	/**
+	 * Update pieces position info if elPassant logic is valid and selected
+	 * 
+	 * @param piece 	 		Selected piece used to check pawn info
+	 * @param pieceBox 			Array that has all pieces info from the game
+	 * @param board 			Board that hold piece positions info
+	 * @param adversaryColor	Hold the info of the opponent piece color
+	 * @param point 			Mouse click coordinate
+	 * @param specialMoves		List with all special moves valid positions
+	 */
 	private static void elPassantAttack(Piece piece, PieceList[] pieceBox, Square[][] board, int adversaryColor,
 			Coordinates point, List<Coordinates> specialMoves) {
 		if (elpassant && piece.getType() == PieceInfo.PAWN) // if el passant is true and piece is a pawn
@@ -249,8 +292,16 @@ public class BoardMovements {
 		board[row][column].setColor(pieceColor);
 	}
 
+	/**
+	 * Fake a movement in a copy of the board to assess later
+	 * 
+	 * @param piece 		Selected piece
+	 * @param copy 			Copy piece array
+	 * @param pieceColor 	Actual piece color info
+	 * @param row 			Row the piece can move
+	 * @param column 		Column the piece can move
+	 */
 	private static void fakeMove(Piece piece, Square copy[][], ColorInfo pieceColor, int row, int column) {
-		/* fake a movement in a copy of the board to assess later */
 		copy[piece.getActualPosition().getRow()][piece.getActualPosition().getColumn()].setPieceID(-1);
 		copy[piece.getActualPosition().getRow()][piece.getActualPosition().getColumn()].setColor(null);
 
@@ -258,8 +309,15 @@ public class BoardMovements {
 		copy[row][column].setColor(pieceColor);
 	}
 
+	/**
+	 * See if a piece can reach the enemy king, if yes returns true
+	 * 
+	 * @param piece 		Selected piece
+	 * @param board 		Game board
+	 * @param possibleMoves All valid coordinates to move
+	 * @return 				True if the enemy king is in check
+	 */
 	private static boolean checkKing(Piece piece, final Square board[][], List<List<Coordinates>> possibleMoves) {
-		/* See if a piece can reach the enemy king, if yes returns true */
 		int row, column;
 
 		if (piece.getType() == PieceInfo.PAWN) {
@@ -315,8 +373,15 @@ public class BoardMovements {
 		return false;
 	}
 
+	/**
+	 * For each piece of opposite color see if it can reach the king
+	 * 
+	 * @param board 		Game board
+	 * @param turn			Actual player turn
+	 * @param pieceBox 		The array with all the pieces
+	 * @return Return 		true king will be in check
+	 */
 	private static boolean isChecked(final Square board[][], ColorInfo turn, PieceList[] pieceBox) {
-		/* For each piece of opposite color see if it can reach the king */
 		int enemyTurn = (turn.value == ColorInfo.WHITE.value ? ColorInfo.BLACK.value : ColorInfo.WHITE.value);
 
 		for (Piece testCheck : pieceBox[enemyTurn].getPieces()) {
@@ -519,6 +584,13 @@ public class BoardMovements {
 		return copy;
 	}
 
+	/**
+	 * Creates a new Coordinate point using a row and column values
+	 * 
+	 * @param row 		Contains a row line value
+	 * @param column 	Contains a column line value
+	 * @return 			Return a coordinate point object with the row and column value
+	 */
 	private static Coordinates point(int row, int column) {
 		return new Coordinates(row, column);
 	}

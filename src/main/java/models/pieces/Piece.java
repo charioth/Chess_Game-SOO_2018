@@ -15,37 +15,50 @@ public class Piece {
 	private PieceInfo type;
 	private boolean moved;
 	private ColorInfo color;
-	
+
 	/**
-	  * Empty constructor
-	  */
-	public Piece() {}
-	
+	 * Empty constructor
+	 */
+	public Piece() {
+	}
+
 	/**
-	  * Instantiate a chess piece
-	  * 
-	  * @param actualPosition	The piece position in the board
-	  * @param type				The piece type
-	  * @param moved			If the piece was moved in the game or not
-	  * @param color			The piece color
-	  */
+	 * Instantiate a chess piece
+	 * 
+	 * @param actualPosition
+	 *            The piece position in the board
+	 * @param type
+	 *            The piece type
+	 * @param moved
+	 *            If the piece was moved in the game or not
+	 * @param color
+	 *            The piece color
+	 */
 	public Piece(Coordinates actualPosition, PieceInfo type, boolean moved, ColorInfo color) {
 		this.actualPosition = actualPosition;
 		this.type = type;
 		this.moved = moved;
 		this.color = color;
 	}
-	
-	
+
 	/**
-	  * Calculates all the possible piece movements, considering the type of the piece but not all special rules
-	  * 
-	  * @param validMoves		All movements that the piece can make without capturing another piece are returned here
-	  * @param validAttack		All movements that the piece can make while capturing another piece are returned here
-	  * @param board			Game board
-	  * @param possibleMoves	The possible moves a piece can do, basically the rules that govern its movements
-	  * @param pieceBox			The array with all the pieces
-	  */
+	 * Calculates all the possible piece movements, considering the type of the
+	 * piece but not all special rules
+	 * 
+	 * @param validMoves
+	 *            All movements that the piece can make without capturing another
+	 *            piece are returned here
+	 * @param validAttack
+	 *            All movements that the piece can make while capturing another
+	 *            piece are returned here
+	 * @param board
+	 *            Game board
+	 * @param possibleMoves
+	 *            The possible moves a piece can do, basically the rules that govern
+	 *            its movements
+	 * @param pieceBox
+	 *            The array with all the pieces
+	 */
 	public void move(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			List<List<Coordinates>> possibleMoves, PieceList[] pieceBox) {
 		/* Choose a movement method based on piece type */
@@ -55,15 +68,21 @@ public class Piece {
 			this.pieceMovements(validMoves, validAttack, board, possibleMoves, pieceBox);
 		}
 	}
-	
+
 	/**
-	  * Calculates all the possible pawn movements not considering all special rules
-	  * 
-	  * @param validMoves		All movements that the pawn can make without capturing another piece are returned here
-	  * @param validAttack		All movements that the pawn can make while capturing another piece are returned here
-	  * @param board			Game board
-	  * @param pieceBox			The array with all the pieces
-	  */
+	 * Calculates all the possible pawn movements not considering all special rules
+	 * 
+	 * @param validMoves
+	 *            All movements that the pawn can make without capturing another
+	 *            piece are returned here
+	 * @param validAttack
+	 *            All movements that the pawn can make while capturing another piece
+	 *            are returned here
+	 * @param board
+	 *            Game board
+	 * @param pieceBox
+	 *            The array with all the pieces
+	 */
 	private void pawnMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			PieceList[] pieceBox) {
 
@@ -110,16 +129,25 @@ public class Piece {
 			}
 		}
 	}
-	
+
 	/**
-	  * Calculates all the possible piece (excluding pawns) movements not considering all special rules
-	  * 
-	  * @param validMoves		All movements that the piece can make without capturing another piece are returned here
-	  * @param validAttack		All movements that the piece can make while capturing another piece are returned here
-	  * @param board			Game board
-	  * @param possibleMoves	The possible moves a piece can do, basically the rules that govern its movements
-	  * @param pieceBox			The array with all the pieces
-	  */
+	 * Calculates all the possible piece (excluding pawns) movements not considering
+	 * all special rules
+	 * 
+	 * @param validMoves
+	 *            All movements that the piece can make without capturing another
+	 *            piece are returned here
+	 * @param validAttack
+	 *            All movements that the piece can make while capturing another
+	 *            piece are returned here
+	 * @param board
+	 *            Game board
+	 * @param possibleMoves
+	 *            The possible moves a piece can do, basically the rules that govern
+	 *            its movements
+	 * @param pieceBox
+	 *            The array with all the pieces
+	 */
 	private void pieceMovements(List<Coordinates> validMoves, List<Coordinates> validAttack, final Square board[][],
 			List<List<Coordinates>> possibleMoves, PieceList[] pieceBox) {
 		int row, column, i;
@@ -136,7 +164,8 @@ public class Piece {
 				if (board[row][column].getPieceID() == -1) { // If there is no piece, its a valid destination
 					BoardMovements.validateMovement(board, this, this.getColor(), pieceBox, validMoves, row, column);
 				} else {
-					if (board[row][column].getColor().value != this.color.value) { // If there is an enemy piece, its a valid destination
+					if (board[row][column].getColor().value != this.color.value) { // If there is an enemy piece, its a
+																					// valid destination
 						BoardMovements.validateAttack(board, this, this.getColor(), pieceBox, validAttack, row, column);
 					}
 					break; // If there is a piece, its not possible to keep going in that direction
@@ -149,16 +178,14 @@ public class Piece {
 			}
 		}
 	}
-	
+
 	/**
-	  * Map the piece attributes the a BSON Document
-	  */
+	 * Map the piece attributes the a BSON Document
+	 */
 	public Document pieceToDoc() {
 		return new Document("coord_row", this.getActualPosition().getRow())
-				.append("coord_column", this.getActualPosition().getColumn())
-				.append("piece_type", this.getType().value)
-				.append("moved", this.isMoved())
-				.append("piece_color", this.getColor().value)
+				.append("coord_column", this.getActualPosition().getColumn()).append("piece_type", this.getType().value)
+				.append("moved", this.isMoved()).append("piece_color", this.getColor().value)
 				.append("index", this.getIndex());
 	}
 

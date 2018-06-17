@@ -9,7 +9,9 @@ import view.graphics.UIScrollScreen;
 
 public abstract class State {
 	/*
-	 * Super class that every state of the game extends it controls the current state using a static variable and control when execute the newGame and loadGame
+	 * Super class that every state of the game extends it controls the current
+	 * state using a static variable and control when execute the newGame and
+	 * loadGame
 	 */
 	private static State currentState = null;
 	public static int lastButtonIndex;
@@ -22,11 +24,12 @@ public abstract class State {
 	protected static boolean loadMenuState;
 
 	protected Game game;
-	
+
 	/**
 	 * Initializes the game states
 	 * 
-	 * @param game The game object to be initialized
+	 * @param game
+	 *            The game object to be initialized
 	 */
 	State(Game game) {
 		this.game = game;

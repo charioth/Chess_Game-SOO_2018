@@ -16,15 +16,15 @@ public class Text {
 	 * font, color and position of the message on the window
 	 * 
 	 * @param message
-	 *            text that will be rendered in the window
+	 *            Text that will be rendered in the window
 	 * @param font
-	 *            define the text font style
+	 *            Define the text font style
 	 * @param color
-	 *            define the color of the rendered text
+	 *            Define the color of the rendered text
 	 * @param x
-	 *            the x axis position of the text in the window
+	 *            The x axis position of the text in the window
 	 * @param y
-	 *            the y axis position of the text in the window
+	 *            The y axis position of the text in the window
 	 */
 	public Text(String message, Font font, Color color, int x, int y) {
 		this.message = message;
@@ -38,7 +38,7 @@ public class Text {
 	 * Method that render the text in the game window
 	 * 
 	 * @param graph
-	 *            graphics object created a canvas to allow draw the text inside
+	 *            Graphics object created a canvas to allow draw the text inside
 	 */
 	public void render(Graphics graph) {
 		graph.setColor(color);
